@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Sentimiento</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        input, button { font-size: 16px; padding: 10px; margin: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Write the sentence</h2>
+    <input type="text" id="textInput" placeholder="Write here..." />
+    <button onclick="predictSentiment()">Analyze</button>
+    <p id="result"></p>
+
+    <script>
+        async function predictSentiment() {
+            let text = document.getElementById("textInput").value;
+            if (!text) {
+                alert("Please enter some text.");
+                return;
+            }
+
+            let response = await fetch("{{ url_for('predict') }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: text })
+            });
+
+            let data = await response.json();
+            if (data.error) {
+                document.getElementById("result").innerText = "Error: " + data.error;
+            } else {
+                document.getElementById("result").innerText = "Sentiment: " + data.sentiment;
+            }
+        }
+    </script>
+</body>
+</html>
