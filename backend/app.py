@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 import numpy as np
 import tensorflow as tf
+from tensorflow.keras.layers import InputLayer
 from tensorflow import keras
 from scipy.sparse import csr_matrix
 
@@ -12,7 +13,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 try:
     model = keras.models.load_model(
     "my_model.keras",
-    custom_objects={'InputLayer': keras.layers.InputLayer}
+    custom_objects={'InputLayer': InputLayer}
 )
 except Exception as e:
     print(f"Error al cargar el modelo: {e}")
