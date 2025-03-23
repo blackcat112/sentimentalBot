@@ -5,10 +5,15 @@ import tensorflow as tf
 from tensorflow import keras
 from scipy.sparse import csr_matrix
 
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  
 
 # Cargar el modelo y el vectorizador
 try:
-    model = keras.models.load_model("my_model.keras")
+    model = keras.models.load_model(
+    "my_model.keras",
+    custom_objects={'InputLayer': keras.layers.InputLayer}
+)
 except Exception as e:
     print(f"Error al cargar el modelo: {e}")
     exit(1)
@@ -57,4 +62,5 @@ def predict():
         return jsonify({"error": f"Error en la predicción: {e}"}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000, debug=False)
+    port = int(os.environ.get("PORT", 5000))  # Usa variable de entorno de Render
+    app.run(host="0.0.0.0", port=port, debug=False)
