@@ -24,22 +24,28 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Sentiment Analysis</h1>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Escribe tu texto aquí"
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? "Analizando..." : "Analizar Sentimiento"}
-        </button>
-      </form>
-      {sentiment && (
-        <div className="result">
-          <h2>Resultado: {sentiment}</h2>
-        </div>
-      )}
+      <header className="App-header">
+        <h1>Análisis de Sentimientos</h1>
+      </header>
+      <main className="App-main">
+        <form onSubmit={handleSubmit} className="sentiment-form">
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Escribe tu texto aquí"
+            className="sentiment-textarea"
+          />
+          <button type="submit" disabled={loading} className="sentiment-button">
+            {loading ? "Analizando..." : "Analizar Sentimiento"}
+          </button>
+        </form>
+        {sentiment && (
+          <div className="result">
+            <h2>Resultado:</h2>
+            <p className={`sentiment ${sentiment.toLowerCase()}`}>{sentiment}</p>
+          </div>
+        )}
+      </main>
     </div>
   );
 }

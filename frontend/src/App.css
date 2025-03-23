@@ -1,33 +1,89 @@
 .App {
   text-align: center;
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-textarea {
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+
+.App-header h1 {
+  margin: 0;
+}
+
+.App-main {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 0 0 8px 8px;
+}
+
+.sentiment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sentiment-textarea {
   width: 100%;
   height: 150px;
-  margin: 10px 0;
+  margin-bottom: 20px;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   font-size: 16px;
 }
 
-button {
-  padding: 10px 20px;
+.sentiment-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
   font-size: 16px;
+  margin: 4px 2px;
   cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.sentiment-button:hover {
+  background-color: #45a049;
+}
+
+.sentiment-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 .result {
   margin-top: 20px;
-  font-size: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sentiment {
+  font-size: 24px;
   font-weight: bold;
 }
 
-@media (max-width: 600px) {
-  .App {
-    padding: 10px;
-  }
-  button {
-    width: 100%;
-  }
+.positivo {
+  color: #4CAF50;
+}
+
+.negativo {
+  color: #f44336;
+}
+
+.neutral {
+  color: #2196F3;
 }
