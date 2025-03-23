@@ -5,9 +5,9 @@ import tensorflow as tf
 from tensorflow.keras.layers import InputLayer
 from tensorflow import keras
 from scipy.sparse import csr_matrix
+from flask_cors import CORS
 
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  
+
 
 # Cargar el modelo y el vectorizador
 try:
@@ -31,7 +31,7 @@ labels = ["Neutral", "Positive", "Negative"]
 
 app = Flask(__name__)
 
-
+CORS(app) 
 
 # Ruta para servir el archivo HTML
 @app.route("/")
