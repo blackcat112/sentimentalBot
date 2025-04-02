@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify, render_template
 import pickle
 import numpy as np
@@ -6,6 +7,10 @@ from tensorflow.keras.layers import InputLayer
 from tensorflow import keras
 from scipy.sparse import csr_matrix
 from flask_cors import CORS
+import tensorflow as tf
+
+tf.config.set_visible_devices([], 'GPU')  # Esto desactiva el uso de las GPUs
+
 
 # Cargar el modelo y el vectorizador
 try:
@@ -62,4 +67,5 @@ def predict():
         return jsonify({"error": f"Error en la predicción: {e}"}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5050, debug=False)
+    port = int(os.environ.get('PORT', 5000))  # Usa el puerto asignado por Render o 5000 por defecto
+    app.run(host='0.0.0.0', port=port) 
