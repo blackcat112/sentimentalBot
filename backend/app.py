@@ -7,17 +7,16 @@ from tensorflow.keras.layers import InputLayer
 from tensorflow import keras
 from scipy.sparse import csr_matrix
 from flask_cors import CORS
-import tensorflow as tf
 
-tf.config.set_visible_devices([], 'GPU')  # Esto desactiva el uso de las GPUs
-
+# Desactivar el uso de la GPU si no la necesitas
+# tf.config.set_visible_devices([], 'GPU')
 
 # Cargar el modelo y el vectorizador
 try:
     model = keras.models.load_model(
-    "my_model.keras",
-    custom_objects={'InputLayer': InputLayer}
-)
+        "my_model.keras",
+        custom_objects={'InputLayer': InputLayer}
+    )
     print("✅ Modelo cargado exitosamente.")
 except Exception as e:
     print(f"Error al cargar el modelo: {e}")
@@ -31,16 +30,15 @@ except Exception as e:
     print(f"Error al cargar el vectorizador: {e}")
     exit(1)
 
-# Mapeo de clases (ajusta según tus categorías)
+# Mapeo de clases
 labels = ["Neutral", "Positive", "Negative"]
 
 app = Flask(__name__)
-CORS(app)  # Habilitar CORS para las peticiones entre el frontend y backend
+CORS(app)
 
-# Ruta para servir el archivo HTML
 @app.route("/")
 def home():
-    return render_template("index.html")  # Asegúrate de tener index.html en la carpeta templates
+    return render_template("index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -53,9 +51,9 @@ def predict():
     try:
         # Vectorizar el texto de entrada
         text_vectorized = vectorizer.transform([text])
-
+        
         if isinstance(text_vectorized, csr_matrix):
-            text_vectorized = text_vectorized.toarray()  # Convertir a numpy array si es necesario
+            text_vectorized = text_vectorized.toarray()
 
         # Hacer la predicción
         prediction = model.predict(text_vectorized)
@@ -67,5 +65,5 @@ def predict():
         return jsonify({"error": f"Error en la predicción: {e}"}), 500
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))  # Usa el puerto asignado por Render o 5000 por defecto
-    app.run(host='0.0.0.0', port=port) 
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
