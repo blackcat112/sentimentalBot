@@ -62,6 +62,5 @@ def predict():
     except Exception as e:
         return jsonify({"error": f"Error en la predicción: {e}"}), 500
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Usa variable de entorno de Render
-    app.run(host="0.0.0.0", port=port, debug=False)
+if __name__ == "__main__": # Usa variable de entorno de Render
+    app.run(host="0.0.0.0", port=5050, debug=False)
