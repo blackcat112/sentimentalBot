@@ -14,7 +14,7 @@ function App() {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.post("http://127.0.0.1:5050/predict", { text });
+      const response = await axios.post("http://0.0.0.0:10000/predict", { text });
       setSentiment(response.data.sentiment);
     } catch (err) {
       setError("Error fetching sentiment. Check console for details.");
