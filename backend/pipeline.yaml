@@ -1,0 +1,8 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: sentiment-analysis-pipeline
+spec:
+  pipelineRef:
+    name: sentiment-analysis-pipeline
+  serviceAccountName: pipeline

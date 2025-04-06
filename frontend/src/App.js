@@ -15,11 +15,7 @@ function App() {
     setLoading(true);
     setError("");
     
-    if (text.trim().toLowerCase() === "i love you") {
-      setSentiment("I love you too Math ❤️");
-      setLoading(false);
-      return;
-    }
+   
 
     try {
       const response = await axios.post("http://127.0.0.1:5050/predict", { text });
@@ -68,18 +64,7 @@ function App() {
           </motion.button>
         </form>
         {error && <p className="error-message">{error}</p>}
-        {sentiment && (
-          <motion.div
-            className={`result ${sentiment === "I love you too ❤️" ? "love-response" : `sentiment-${sentiment.toLowerCase()}`}`}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2>Sentiment:</h2>
-            <p>{sentiment}</p>
-            {sentiment === "I love you too ❤️" && <img src={heartImage} alt="Hearts" className="heart-image" />}
-          </motion.div>
-        )}
+       
       </motion.main>
     </div>
   );
