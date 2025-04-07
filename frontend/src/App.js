@@ -18,7 +18,7 @@ function App() {
    
 
     try {
-      const response = await axios.post("http://127.0.0.1:5050/predict", { text });
+      const response = await axios.post("https://sentimental-api2-sentimental-bot.2.rahtiapp.fi/predict", { text });
       setSentiment(response.data.sentiment);
     } catch (err) {
       setError("Error fetching sentiment. Check console for details.");
