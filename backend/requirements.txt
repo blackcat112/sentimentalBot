@@ -4,3 +4,4 @@ tensorflow==2.17.0
 scikit-learn==1.6.1
 numpy==1.26.4
 gunicorn==20.1.0
+PyJWT==2.8.0 #backend security 
