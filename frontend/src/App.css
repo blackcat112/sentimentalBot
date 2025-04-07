@@ -18,12 +18,12 @@ body, html {
 /* App Container */
 .App {
   width: 90%;
-  max-width: 600px;
+  max-width: 400px;
   padding: 2rem;
-  border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   position: relative;
 }
 
@@ -37,6 +37,8 @@ body, html {
   font-size: 2.5rem;
   font-weight: bold;
   color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 /* Main Form */
@@ -69,6 +71,23 @@ body, html {
   box-shadow: 0 0 0 3px #00c6ff60;
 }
 
+/* Inputs */
+.sentiment-input {
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.1rem;
+  background: #ffffff10;
+  color: #fff;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sentiment-input:focus {
+  outline: none;
+  background: #ffffff20;
+  box-shadow: 0 0 0 3px #00c6ff80;
+}
+
 /* Button */
 .sentiment-button {
   padding: 0.8rem 1.5rem;
@@ -87,11 +106,20 @@ body, html {
   cursor: not-allowed;
 }
 
-/* Error */
+.sentiment-button:hover {
+  transform: scale(1.05);
+}
+
+.sentiment-button:active {
+  transform: scale(0.95);
+}
+
+/* Error Message */
 .error-message {
   color: #ff6666;
   text-align: center;
   font-weight: 600;
+  font-size: 0.9rem;
 }
 
 /* Background animation */
@@ -126,7 +154,7 @@ body, html {
     font-size: 1rem;
   }
 
-  .sentiment-textarea {
+  .sentiment-input {
     font-size: 0.95rem;
   }
 }
