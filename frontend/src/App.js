@@ -10,15 +10,30 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const sentimentEmojis = {
+    Positive: "😊",
+    Neutral: "😐",
+    Negative: "😞"
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setSentiment("");
     setError("");
-    
-   
+
+    if (!text.trim()) {
+      setError("Please enter some text to analyse.");
+      return;
+    }
+
+    setLoading(true);
 
     try {
-      const response = await axios.post("https://sentimental-api2-sentimental-bot.2.rahtiapp.fi/predict", { text });
+      const response = await axios.post(
+        "https://sentimental-api2-sentimental-bot.2.rahtiapp.fi/predict",
+        { text },
+        { headers: { "Content-Type": "application/json" } }
+      );
       setSentiment(response.data.sentiment);
     } catch (err) {
       setError("Error fetching sentiment. Check console for details.");
@@ -63,8 +78,22 @@ function App() {
             {loading ? "Analysing..." : "Analyse"}
           </motion.button>
         </form>
+
         {error && <p className="error-message">{error}</p>}
-       
+
+        {sentiment && (
+          <motion.div
+            className="sentiment-result"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <p>
+              Sentiment Detected: <strong>{sentiment}</strong>{" "}
+              {sentimentEmojis[sentiment]}
+            </p>
+          </motion.div>
+        )}
       </motion.main>
     </div>
   );

@@ -1,150 +1,132 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;500;700&display=swap');
-
-body {
-  font-family: 'Montserrat', sans-serif;
-  background: #0d0d0d;
+/* Reset y base */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  overflow: hidden;
-  color: white;
 }
 
-.background-animation {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(-45deg, #ff0080, #ff8c00, #ff0080, #1e90ff);
-  background-size: 400% 400%;
-  animation: gradientBG 6s ease infinite;
-  z-index: -1;
-}
-
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
+/* App Container */
 .App {
-  text-align: center;
   width: 90%;
-  max-width: 500px;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 20px;
-  border-radius: 20px;
+  max-width: 600px;
+  padding: 2rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(15px);
-  box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Header */
+.App-header {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 28px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #fdfdfd;
-  text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* Main Form */
+.App-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .sentiment-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 1rem;
 }
 
 .sentiment-textarea {
-  width: 100%;
   min-height: 120px;
-  padding: 12px;
-  border-radius: 10px;
-  border: 2px solid #ff8c00;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  font-size: 16px;
-}
-
-.sentiment-textarea::placeholder {
-  color: #ddd;
-}
-
-.sentiment-button {
-  background: linear-gradient(45deg, #ff0080, #ff8c00);
-  color: white;
+  padding: 1rem;
   border: none;
-  padding: 14px;
-  border-radius: 12px;
+  border-radius: 1rem;
+  font-size: 1rem;
+  resize: vertical;
+  background: #ffffff10;
+  color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.sentiment-textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #00c6ff60;
+}
+
+/* Button */
+.sentiment-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  font-weight: bold;
   cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
-.sentiment-button:hover {
-  background: linear-gradient(45deg, #ff8c00, #ff0080);
+.sentiment-button:disabled {
+  background: #ffffff33;
+  cursor: not-allowed;
 }
 
-.result {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bold;
+/* Error */
+.error-message {
+  color: #ff6666;
+  text-align: center;
+  font-weight: 600;
 }
 
-.sentiment-positive {
-  background-color: #27ae60;
-  color: white;
+/* Background animation */
+.background-animation {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(0,255,255,0.05), transparent 70%);
+  animation: rotateBg 30s linear infinite;
+  z-index: -1;
+  filter: blur(100px);
 }
 
-.sentiment-negative {
-  background-color: #e74c3c;
-  color: white;
+@keyframes rotateBg {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.sentiment-neutral {
-  background-color: #f1c40f;
-  color: black;
-}
-
-.love-response {
-  background-color: #ff1493;
-  color: white;
-  padding: 20px;
-  border-radius: 15px;
-}
-
-.heart-image {
-  width: 80px;
-  margin-top: 10px;
-}
-
-/* Adaptabilidad para móviles */
+/* Media Queries */
 @media (max-width: 600px) {
-  .App {
-    width: 95%;
-    padding: 15px;
-  }
-
   .title {
-    font-size: 24px;
-  }
-
-  .sentiment-textarea {
-    font-size: 14px;
+    font-size: 2rem;
   }
 
   .sentiment-button {
-    padding: 12px;
+    font-size: 1rem;
   }
 
-  .result {
-    font-size: 16px;
+  .sentiment-textarea {
+    font-size: 0.95rem;
   }
-
-  .black-text {
-    color: black;
-  }
-  
 }
