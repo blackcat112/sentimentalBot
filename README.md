@@ -12,7 +12,7 @@
 - [Usage](#usage)
 - [Repository Structure](#repository-structure)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 
@@ -53,9 +53,13 @@ npm start --prefix frontend
 ## Repository Structure
 
 sentimentalBot/
+
 ├── backend/ # Backend source code written in Python
+
 ├── frontend/ # Frontend source code written in JavaScript, HTML, and CSS
+
 ├── Dockerfile # Docker configuration file
+
 └── README.md # Project documentation
 
 
