@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import "./App.css";
-import heartImage from "./hearth.png"; // Asegúrate de tener esta imagen en tu proyecto
 
 function App() {
   const [text, setText] = useState("");
@@ -19,7 +18,7 @@ function App() {
     Negative: "😞"
   };
 
-  // Maneja el login
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -36,7 +35,7 @@ function App() {
       });
 
       if (response.data.token) {
-        // Guardar el token JWT en localStorage
+        
         localStorage.setItem("jwt_token", response.data.token);
         setLoggedIn(true);
       } else {
@@ -48,7 +47,7 @@ function App() {
     }
   };
 
-  // Maneja el análisis de sentimiento
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSentiment("");
@@ -70,7 +69,7 @@ function App() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}` // Agregar el token en el header
+            Authorization: `Bearer ${token}` 
           }
         }
       );
@@ -130,7 +129,7 @@ function App() {
             {error && <p className="error-message">{error}</p>}
           </form>
         ) : (
-          // Formulario para enviar texto y analizar sentimiento
+          
           <form onSubmit={handleSubmit} className="sentiment-form">
             <motion.textarea
               value={text}
