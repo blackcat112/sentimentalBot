@@ -1,4 +1,4 @@
-/* Reset y base */
+/* Reset & Base */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,6 +13,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 /* App Container */
@@ -25,6 +26,19 @@ body, html {
   backdrop-filter: blur(15px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   position: relative;
+  overflow: hidden;
+  animation: scaleIn 0.8s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Header */
@@ -39,6 +53,18 @@ body, html {
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 2px;
+  animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Main Form */
@@ -63,12 +89,13 @@ body, html {
   resize: vertical;
   background: #ffffff10;
   color: #fff;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .sentiment-textarea:focus {
   outline: none;
   box-shadow: 0 0 0 3px #00c6ff60;
+  transform: scale(1.02);
 }
 
 /* Inputs */
@@ -79,13 +106,14 @@ body, html {
   font-size: 1.1rem;
   background: #ffffff10;
   color: #fff;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .sentiment-input:focus {
   outline: none;
   background: #ffffff20;
   box-shadow: 0 0 0 3px #00c6ff80;
+  transform: scale(1.02);
 }
 
 /* Button */
@@ -98,7 +126,7 @@ body, html {
   color: white;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, box-shadow 0.3s ease;
 }
 
 .sentiment-button:disabled {
@@ -107,7 +135,8 @@ body, html {
 }
 
 .sentiment-button:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 198, 255, 0.5);
 }
 
 .sentiment-button:active {
@@ -120,6 +149,22 @@ body, html {
   text-align: center;
   font-weight: 600;
   font-size: 0.9rem;
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
 }
 
 /* Background animation */
@@ -141,6 +186,57 @@ body, html {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* New Floating Particles Animation */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.particles div {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.particles div:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-duration: 5s;
+  animation-delay: 0s;
+}
+
+.particles div:nth-child(2) {
+  top: 50%;
+  left: 80%;
+  animation-duration: 7s;
+  animation-delay: 1s;
+}
+
+.particles div:nth-child(3) {
+  top: 80%;
+  left: 30%;
+  animation-duration: 6s;
+  animation-delay: 2s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
   }
 }
 
