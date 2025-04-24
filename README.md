@@ -2,7 +2,7 @@
 
 ## Project Description
 
-**SentimentalBot** is an application designed to analyze sentiment in text using natural language processing (NLP) techniques. This project combines a Python backend with an interactive frontend built using JavaScript, HTML, and CSS, hosted at [sentimentalbot.onrender.com](https://sentimentalbot.onrender.com).
+**SentimentalBot** is an application designed to analyze sentiment in text using natural language processing (NLP) techniques. This project combines a Python backend with an interactive frontend built using JavaScript, HTML, and CSS, hosted at [sentimentalbot](https://icy-sky-02a154003.6.azurestaticapps.net).
 
 ## Table of Contents
 
