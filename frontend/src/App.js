@@ -3,6 +3,55 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import "./App.css";
 
+
+const translations = {
+  en: {
+    title: "Sentiment Analyst",
+    usernamePlaceholder: "Username",
+    passwordPlaceholder: "Password",
+    loginButton: "Login",
+    loginError: "Please enter both username and password.",
+    loginInvalid: "Invalid login credentials.",
+    loginApiError: "Error during login. Please try again.",
+    textareaPlaceholder: "Write here ...",
+    analyseButton: "Analyse",
+    analysing: "Analysing...",
+    sentimentLabel: "Sentiment Detected",
+    predictionError: "Error fetching sentiment. Check console for details.",
+    textError: "Please enter some text to analyse.",
+  },
+  es: {
+    title: "Analizador de Sentimientos",
+    usernamePlaceholder: "Usuario",
+    passwordPlaceholder: "Contraseña",
+    loginButton: "Iniciar sesión",
+    loginError: "Por favor, introduce usuario y contraseña.",
+    loginInvalid: "Credenciales inválidas.",
+    loginApiError: "Error al iniciar sesión. Inténtalo de nuevo.",
+    textareaPlaceholder: "Escribe aquí ...",
+    analyseButton: "Analizar",
+    analysing: "Analizando...",
+    sentimentLabel: "Sentimiento Detectado",
+    predictionError: "Error al obtener el sentimiento. Revisa la consola.",
+    textError: "Por favor, introduce un texto para analizar.",
+  },
+  fi: {
+    title: "Tunneanalyysi",
+    usernamePlaceholder: "Käyttäjätunnus",
+    passwordPlaceholder: "Salasana",
+    loginButton: "Kirjaudu",
+    loginError: "Syötä käyttäjätunnus ja salasana.",
+    loginInvalid: "Virheelliset kirjautumistiedot.",
+    loginApiError: "Virhe kirjautumisessa. Yritä uudelleen.",
+    textareaPlaceholder: "Kirjoita tähän ...",
+    analyseButton: "Analysoi",
+    analysing: "Analysoidaan...",
+    sentimentLabel: "Tunnistettu tunne",
+    predictionError: "Virhe haettaessa tunnetta. Katso konsoli.",
+    textError: "Syötä analysoitava teksti.",
+  }
+};
+
 function App() {
   const [text, setText] = useState("");
   const [sentiment, setSentiment] = useState("");
@@ -18,13 +67,19 @@ function App() {
     Negative: "😞"
   };
 
+  const userLang = navigator.language.startsWith("es")
+    ? "es"
+    : navigator.language.startsWith("fi")
+    ? "fi"
+    : "en";
+  const t = translations[userLang];
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
     if (!username.trim() || !password.trim()) {
-      setError("Please enter both username and password.");
+      setError(t.loginError);
       return;
     }
 
@@ -35,18 +90,16 @@ function App() {
       });
 
       if (response.data.token) {
-        
         localStorage.setItem("jwt_token", response.data.token);
         setLoggedIn(true);
       } else {
-        setError("Invalid login credentials.");
+        setError(t.loginInvalid);
       }
     } catch (err) {
-      setError("Error during login. Please try again.");
+      setError(t.loginApiError);
       console.error("Login Error:", err);
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +107,7 @@ function App() {
     setError("");
 
     if (!text.trim()) {
-      setError("Please enter some text to analyse.");
+      setError(t.textError);
       return;
     }
 
@@ -75,7 +128,7 @@ function App() {
       );
       setSentiment(response.data.sentiment);
     } catch (err) {
-      setError("Error fetching sentiment. Check console for details.");
+      setError(t.predictionError);
       console.error("API Error:", err);
     } finally {
       setLoading(false);
@@ -91,7 +144,7 @@ function App() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="title">Sentiment Analyst</h1>
+        <h1 className="title">{t.title}</h1>
       </motion.header>
       <motion.main
         className="App-main"
@@ -100,13 +153,12 @@ function App() {
         transition={{ duration: 1 }}
       >
         {!loggedIn ? (
-          // Formulario de login
           <form onSubmit={handleLogin} className="sentiment-form">
             <motion.input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Username"
+              placeholder={t.usernamePlaceholder}
               className="sentiment-input"
               required
             />
@@ -114,7 +166,7 @@ function App() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
+              placeholder={t.passwordPlaceholder}
               className="sentiment-input"
               required
             />
@@ -124,17 +176,16 @@ function App() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              Login
+              {t.loginButton}
             </motion.button>
             {error && <p className="error-message">{error}</p>}
           </form>
         ) : (
-          
           <form onSubmit={handleSubmit} className="sentiment-form">
             <motion.textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="Write here ..."
+              placeholder={t.textareaPlaceholder}
               className="sentiment-textarea black-text"
               whileFocus={{ scale: 1.05 }}
             />
@@ -145,7 +196,7 @@ function App() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              {loading ? "Analysing..." : "Analyse"}
+              {loading ? t.analysing : t.analyseButton}
             </motion.button>
             {error && <p className="error-message">{error}</p>}
             {sentiment && (
@@ -156,7 +207,7 @@ function App() {
                 transition={{ duration: 0.5 }}
               >
                 <p>
-                  Sentiment Detected: <strong>{sentiment}</strong>{" "}
+                  {t.sentimentLabel}: <strong>{sentiment}</strong>{" "}
                   {sentimentEmojis[sentiment]}
                 </p>
               </motion.div>
